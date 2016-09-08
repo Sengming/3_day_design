@@ -18,6 +18,22 @@ BaseDecoderInterface::~BaseDecoderInterface()
 // Does generic handling of lines here
 void BaseDecoderInterface::decode(DataLinePair* dataToDecode)
 { 
+	// BWS I would have passed dataToDecode in as a referece.
+	//     But if you are going to use a pointer, then just get in the habbit of adding:
+	//     assert( dataToDecode != nullptr )
+
+	// BWS In general you default your results to the pesimistic failure state.  Then set
+	//     to success when the often narrow success path is taken.
+    //       
+	//     m_isValidPair = false;
+	//     if( lines[0].checksum == lines[1].checksum ) {
+	//         process...
+	//         m_isValidPair = true;
+	//     }
+	//
+	//     Defining the success path in your if, rather than the failure path tends to be more
+	//     maintainable.
+
 	if (dataToDecode->lines[0].checksum != dataToDecode->lines[1].checksum)
 	{
 		m_isValidPair = false;

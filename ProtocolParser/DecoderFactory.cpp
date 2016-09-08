@@ -21,7 +21,12 @@ BaseDecoderInterface* DecoderFactory::generateDecoder(DeviceType decoderCode)
 	switch (decoderCode)
 	{
 	case CLAMP_MODULE_1:
-		return dynamic_cast<BaseDecoderInterface*>(new Clamp1Decoder());
+		// BWS I would avoid multiple returns, there really is no need here.
+		//     revTal = new Clamp1Decoder();
+		//     break;
+		//   
+		//     with return at end.
+		return dynamic_cast<BaseDecoderInterface*>(new Clamp1Decoder());  // BWS You do not need to cast to a base class.
 		break;
 	case CLAMP_MODULE_2:
 		return dynamic_cast<BaseDecoderInterface*>(new Clamp2Decoder());
@@ -29,5 +34,24 @@ BaseDecoderInterface* DecoderFactory::generateDecoder(DeviceType decoderCode)
 	default:
 		return NULL;
 	}
+
+	// BWS You are potentially returning a NULL value.  It is better to avoid NULL as much as possible.
+	//     In main() you now have to check for this.
+	//     decoder = generateDecoder();
+	//     if( decoder != NULL ) {
+	//          decoder->decode()
+	//     }
+	//
+	//     A better option in this case would be to return an object of a class type that handles
+	//     an unknown address.
+	//
+	//     class UnknownDecoder {
+	//         decode() { /* do nothing */ }
+	//     }
+    //
+	//     default:
+	//         retVal = new UnknownDecoder()
+	//
+	//     In main() you no longer need to check for NULL.
 
 }

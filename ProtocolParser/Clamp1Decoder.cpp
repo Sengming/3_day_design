@@ -10,6 +10,15 @@ void Clamp1Decoder::decode(DataLinePair* dataToDecode)
 {
 	if (m_isValidPair = true)
 	{
+		// BWS Rather than putting the 'burden' on the derived classes to control the flow
+		//     of decoding and call the base class method, consider the template method pattern.
+		//     https://sourcemaking.com/design_patterns/template_method
+		//
+		//     The base class could do the control flow for decoding.  Then it could call to
+		//     protected virtual methods which are filled in by the derived classes (like Clamp1Decoder).
+		//     These derived methods would then just focus on their specific decode and leave the control
+		//     flow logic in the base class.
+
 		BaseDecoderInterface::decode(dataToDecode);
 		//printf("Clamp1Decoder!\n");
 

@@ -14,7 +14,9 @@ struct DataLine
 {
 	double timeStamp;
 	Direction_e IoDirection;
-	char byte[100];
+	char byte[100];   // BWS If writing in C++ and you have the power of the std library, you don't 
+	                  //     need to make these assumptions about number of bytes.
+	                  //     Take a look at std::vector
 	uint32_t checksum;
 };
 
