@@ -112,7 +112,7 @@ int main(uint32_t argc, char* argv[])
 						// This makes it difficult to understand what it takes to get to this code.  It is a lot
 						// to understand all at once.  My fear is that as you start adding error handling, this
 						// will just get more complex and deeper.
-						decoder->decode(&pairCommands);
+						decoder->decodeAll(&pairCommands);
 					}
 					delete decoder;
 				}

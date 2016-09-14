@@ -9,12 +9,15 @@
 class BaseDecoderInterface
 {
 public:
-	~BaseDecoderInterface();
-	virtual void decode(DataLinePair* dataToDecode); //leave as void return for now
+	virtual ~BaseDecoderInterface() = 0;
+	virtual void decodeAll(DataLinePair* dataToDecode);
 
 protected:
-	bool m_isValidPair;
 	BaseDecoderInterface();
+	virtual bool checkChecksum(DataLinePair* dataToDecode);
+	virtual void decodeTime(DataLinePair* dataToDecode);
+	virtual void decodeAddress(DataLinePair* dataToDecode);
+	virtual void decodeBytes(DataLinePair* dataToDecode) = 0; //leave as void return for now
 
 private:
 	char* m_timestamp = new char [30];
